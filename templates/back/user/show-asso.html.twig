@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Association{% endblock %}
+
+{% block body %}
+
+    <h1>{{ user.name }}</h1>
+
+    <img src="{{ user.picture }}" class="picture"/>
+
+    <table class="table table_show">
+        <tbody>
+            <tr>
+                <th>Mail</th>
+                <td>{{ user.mail }}</td>
+            </tr>
+            <tr>
+                <th>Siret</th>
+                <td>{{ user.siret }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ user.adress }}</td>
+            </tr>
+            <tr>
+                <th>Code Postal</th>
+                <td>{{ user.zipcode }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ user.city }}</td>
+            </tr>
+            <tr>
+                <th>Département</th>
+                <td>{{ user.department }}</td>
+            </tr>
+            <tr>
+                <th>Région</th>
+                <td>{{ user.region }}</td>
+            </tr>
+            <tr>
+                <th>Téléphone</th>
+                <td>{{ user.phoneNumber }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ user.description }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ user.status ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Site Internet</th>
+                <td>{{ user.website }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Espèces</th>
+                
+                <td>{% for species in user.species %}- {{ species.name }} {% endfor %}</td>
+                
+            </tr>
+        </tbody>
+    </table>
+
+    <div class = "button_show">
+
+        <button class="btn btn-edit"><a href="{{ path('app_back_asso_edit', {'id': user.id}) }}"> Editer</a></button>
+
+        <button class="btn btn-profil"><a href="{{ path('app_back_asso') }}"> Retour à la liste</a></button>
+
+        {{ include('back/user/_delete_form-asso.html.twig') }}
+        
+    </div>
+{% endblock %}

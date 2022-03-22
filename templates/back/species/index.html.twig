@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Species index{% endblock %}
+
+{% block body %}
+    <h1>Liste des espèces</h1>
+
+    <table class="table table-striped table-bordered">
+        <thead class="tableau">
+            <tr>
+                <th>ID</th>
+                <th>Nom de l'espèce</th>
+                <th>Que voulez-vous faire?</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+        {% for species in species %}
+            <tr>
+                <td>{{ species.id }}</td>
+                <td>{{ species.name }}</td>
+                <td>
+                    <a href="{{ path('app_species_show', {'id': species.id}) }}" class="btn btn-profil">Voir</a>
+                    <a href="{{ path('app_species_edit', {'id': species.id}) }}" class="btn btn-edit">Editer</a>
+                </td>
+            </tr>
+        {% else %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_species_new') }}" class="btn btn-profil" style="margin-bottom:20px">Ajouter</a>
+
+{% endblock %}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<!-- HEAD -->
+    <head>
+        <meta charset="UTF-8">
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+        <!-- Bootstrap icons -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+        <!-- Our custom CSS -->
+        <link rel="stylesheet" href="{{ asset('assets/css/back.css') }}">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Fredoka:wght@300;400;500&display=swap" rel="stylesheet">
+        
+        <link rel="shortcut icon" href="{{ asset('assets/favicon.ico') }}" type="image/x-icon">
+        
+        <title>{% block title %}Bienvenue sur le back Office{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+
+<!-- HEADER  -->
+    <body id="main">
+    <header id="header">
+        <div class="header">
+            <a class="navbar__link" href="{{ path('app_back_index') }}"><img class="header__title" src={{ asset('assets/image/logo.png') }} alt="title" /></a>
+        
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+            {% if app.user == null %}
+                <a href="{{ path('app_back_login') }}" type="button" class="btn btn-lg btn-profil">Connexion</a>
+            {% else %}
+                <a href="{{ path('app_back_profile') }}" type="button" class="btn btn-lg btn-profil">Profil</a>
+                <a href="{{ path('app_back_logout') }}" type="button" class="btn btn-lg btn-deco">Deconnexion</a>
+            {% endif %}
+
+            </div>
+        </div>
+        
+<!-- NAV  -->
+        <nav class="navbar">
+            <ul class="navbar__links justify-content-center">
+            <li class="navbar__item">
+                <a class="navbar__link" href="{{ path('app_back_index') }}">Accueil</a>
+            </li>
+            <li class="navbar__item">
+                <a class="navbar__link" href="{{ path('app_back_asso') }}">Associations</a>
+            </li>
+            <li class="navbar__item">
+                <a class="navbar__link" href="{{ path('app_back_particular') }}">Particuliers</a>
+            </li>
+            <li class="navbar__item">
+                <a class="navbar__link" href="{{ path('app_all_species') }}">Espèces</a>
+            </li>
+            <li class="navbar__item">
+                <a class="navbar__link" href="http://localhost:5050/">A Pet 4 Life</a>
+            </li>
+            </ul>
+        </nav>
+    </header>
+<div id ="container">
+<!-- BODY  -->
+    {% block body %}{% endblock %}
+</div>
+<!-- FOOTER  -->
+    <footer class ="footer">
+        <div class="footer__links">
+            <p>A Pet 4 Life 2022</p>
+        </div>
+    </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+    </body>
+</html>

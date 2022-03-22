@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+  <h1 class = "title">Bienvenue sur le Back Office !</h1>
+
+    <div class="card-group">
+    {% for data in datas %}
+    <div class ="col-5 m-2">
+      <div class="card">
+        <img src="{{ data.picture }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h2 class="card-title">{{ data.category_name }}</h2>
+          <p class="card-text">{{ data.description }}</p>
+          <a class="navbar__link" href="{{data.path}}"><button type="button" class="btn btn-info">Suivant</button></a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Species{% endblock %}
+
+{% block body %}
+    <h1>Ajouter une nouvelle espèce</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    <div class="button_new">
+
+        <button class="btn btn-edit">{{ button_label|default('Sauvegarder') }}</button>
+
+        <button class="btn btn-profil"><a href="{{ path('app_all_species') }}"> Retour à la liste</a></button>
+
+    </div>
+
+    {{ form_end(form) }}
+
+{% endblock %}

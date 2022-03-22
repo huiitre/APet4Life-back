@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Mon Profil</h1>
+
+    <table class="table table_show">
+        <tbody>
+            <tr>
+                <th>Mail</th>
+                <td>{{ app.user.mail }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ app.user.roles ? app.user.roles|json_encode : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class = "button_show">
+        <a href="{{ path('app_back_index') }}" class="btn btn-profil">Retour à l'accueil</a>
+
+        {# <a href="{{ path('app_back_part_edit', {'id': user.id}) }}" class="btn btn-edit">Editer</a> #}
+    </div>
+{% endblock %}

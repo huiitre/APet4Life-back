@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+    <h1>Modifier un particulier</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+
+        <div class = "button_edit">
+
+            <button class="btn btn-edit">{{ button_label|default('Sauvegarder') }}</button>
+        
+    {{ form_end(form) }}
+
+        {{ include('back/user/_delete_form-part.html.twig') }}  
+        
+        <button class="btn btn-profil"><a href="{{ path('app_back_particular') }}"> Retour à la liste</a></button>
+
+        </div>
+
+{% endblock %}
