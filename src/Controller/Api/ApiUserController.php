@@ -173,8 +173,8 @@ class ApiUserController extends AbstractController
             $myJsonErrors->setValidationErrors($errors);
         }
 
-        $userHasher = $hasher->hashPassword($user, $user->getPassword());
-        $user->setPassword($userHasher);
+        /* $userHasher = $hasher->hashPassword($user, $user->getPassword());
+        $user->setPassword($userHasher); */
 
         $doctrine->persist($user);
 
@@ -221,12 +221,12 @@ class ApiUserController extends AbstractController
     }
 
     /**
-     * @Route("secure/user/profile/{id}", name="app_profil", methods={"GET"})
+     * @Route("secure/user/profile", name="app_profil", methods={"GET"})
      */
-    public function profile(User $user): Response
+    public function profile(): Response
     {
         //? pour la récupération de l'user via son token et pas l'id
-        // $user = $this->getUser();
+        $user = $this->getUser();
 
         //? pas utile, j'ai ajouté le group 'user' dans l'entity user pour "role"
         // $roles = $user->getRoles();
