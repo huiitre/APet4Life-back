@@ -210,13 +210,13 @@ class ApiUserController extends AbstractController
 
         return $this->json(
             // les données à transformer en JSON
-            $user,
+            // $user,
             // HTTP STATUS CODE
             Response::HTTP_NO_CONTENT,
             // HTTP headers supplémentaires, d
-            [],
+            // [],
             // Contexte de serialisation
-            ['groups'=> 'user']
+            // ['groups'=> 'user']
         );
     }
 
