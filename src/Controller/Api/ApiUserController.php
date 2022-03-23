@@ -199,11 +199,11 @@ class ApiUserController extends AbstractController
     }
 
     /**
-     * @Route("secure/user/delete/{id}", name="api_user_delete", methods={"DELETE"})
+     * @Route("secure/user/delete", name="api_user_delete", methods={"DELETE"})
      */
-    public function deleteUser(EntityManagerInterface $doctrine, UserRepository $userRepo, $id)
+    public function deleteUser(EntityManagerInterface $doctrine)
     {
-        $user = $userRepo->find($id);
+        $user = $this->getUser();
 
         $doctrine->remove($user);
         $doctrine->flush();
@@ -212,7 +212,7 @@ class ApiUserController extends AbstractController
             // les données à transformer en JSON
             $user,
             // HTTP STATUS CODE
-            Response::HTTP_OK,
+            Response::HTTP_NO_CONTENT,
             // HTTP headers supplémentaires, d
             [],
             // Contexte de serialisation
@@ -235,11 +235,11 @@ class ApiUserController extends AbstractController
             // les données à transformer en JSON
             $user,
             // HTTP STATUS CODE
-            200,
+            Response::HTTP_OK,
             // HTTP headers supplémentaires, d
             [],
             // Contexte de serialisation
-            ['groups'=> 'user']
+            ['groups' => 'user']
         );
     }
 
