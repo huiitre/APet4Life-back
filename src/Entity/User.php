@@ -82,7 +82,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"association"})
-     * @Groups({"user"})
      * @Assert\NotBlank
      */
     private $password;
