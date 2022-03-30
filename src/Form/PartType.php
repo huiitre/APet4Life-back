@@ -24,12 +24,12 @@ class PartType extends AbstractType
     {
         $builder
             /* ->add('type') */
-            ->add('firstname', TextType::class, ['label' => 'prénom','attr' => ['placeholder' => 'saisissez votre Prénom']])
-            ->add('lastname', TextType::class, ['label' => 'Nom de famille','attr' => ['placeholder' => 'saisissez votre nom de famille']])
-            ->add('mail', EmailType::class, ['label' => 'E-Mail','attr' => ['placeholder' => 'saisissez votre e-mail']])
-            ->add('password', PasswordType::class, ['label' => 'Mot de passe'])
-            ->add('department', TextType::class, ['label' => 'Département'])
-            ->add('phone_number', TextType::class, ['label' => 'Numero de téléphone'])
+            ->add('mail', EmailType::class, ['label' => 'E-Mail*','attr' => ['placeholder' => 'saisissez votre e-mail']])
+            ->add('firstname', TextType::class, ['label' => 'prénom','attr' => ['placeholder' => 'saisissez votre Prénom'], 'required' => false])
+            ->add('lastname', TextType::class, ['label' => 'Nom de famille','attr' => ['placeholder' => 'saisissez votre nom de famille'], 'required' => false])
+            // ->add('password', PasswordType::class, ['label' => 'Mot de passe', 'required' => false])
+            ->add('department', TextType::class, ['label' => 'Département', 'required' => false])
+            ->add('phone_number', TextType::class, ['label' => 'Numero de téléphone', 'required' => false])
             ;
     }
 

@@ -152,13 +152,14 @@ class ApiUserController extends AbstractController
     }
 
         /**
-     * @Route("secure/user/update/{id}", name="api_user_update", methods={"PATCH"})
+     * @Route("secure/user/update", name="api_user_update", methods={"PATCH"})
      */
-    public function updateUser(UserPasswordHasherInterface $hasher, EntityManagerInterface $doctrine, Request $request, SerializerInterface $serializer, ValidatorInterface $validator, UserRepository $userRepo, int $id)
+    public function updateUser(EntityManagerInterface $doctrine, Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
     {
         $content = $request->getContent(); // Get json from request
 
-        $user = $userRepo->find($id); // Try to find product in database with provided id
+        // $user = $userRepo->find($id); // Try to find product in database with provided id
+        $user = $this->getUser();
 
         try {
             $user = $serializer->deserialize($content, User::class, 'json', ['object_to_populate' => $user]);
@@ -184,7 +185,7 @@ class ApiUserController extends AbstractController
         } 
         catch (UniqueConstraintViolationException $e) {
             return new JsonResponse("L'adresse mail existe déjà", Response::HTTP_CONFLICT);
-            }
+        }
             
         return $this->json(
             // les données à transformer en JSON
@@ -213,10 +214,10 @@ class ApiUserController extends AbstractController
             // $user,
             // HTTP STATUS CODE
             Response::HTTP_NO_CONTENT,
-            // HTTP headers supplémentaires, d
+            // HTTP headers supplémentaires
             // [],
             // Contexte de serialisation
-            // ['groups'=> 'user']
+            // ['groups' => 'user']
         );
     }
 
@@ -243,6 +244,7 @@ class ApiUserController extends AbstractController
         );
     }
 
+    //! ne sert pas dans le cadre de l'api
     /**
      * @Route("secure/user/logout", name="app_logout")
      */

@@ -33,7 +33,7 @@ class AssoType extends AbstractType
                 'constraints' => [new Length(['min' => 17, 'max' => 17])]
                 ])
             ->add('mail', EmailType::class, ['label' => 'E-Mail'])
-            ->add('password', PasswordType::class, ['label' => 'Mot de passe'])
+            // ->add('password', PasswordType::class, ['label' => 'Mot de passe'])
             ->add('adress', TextType::class, ['label' => 'Adresse'])
             ->add('zipcode', TextType::class, ['label' => 'Code postal'])
             ->add('city', TextType::class, ['label' => 'Ville'])
