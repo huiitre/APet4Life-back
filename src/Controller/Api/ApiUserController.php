@@ -65,23 +65,37 @@ class ApiUserController extends AbstractController
      */
     public function createUser(EntityManagerInterface $doctrine, Request $request, SerializerInterface $serializer, ValidatorInterface $validator, MySlugger $slugger, UserPasswordHasherInterface $hasher): Response
     {
+        //! attention à bien faire la différence entre particulier et association, le front est sujet à des failles, l'utilisateur peut modifier l'objet JSON et y ajouter un champ "name" alors que c'est un particulier. De ce fait on ne devrait pas pouvoir lui générer un slug.
+        //todo penser à revoir les conditions plus bas
 
+        //? on récupère dans le corps de la requête les données provenant de l'api
         $data = $request->getContent();
         
         try {
+            //? on vient décoder les informations tout en instanciant la class User en créant un nouvel objet.
+            //? En paramètre de la méthode deserialize, on a :
+            //? 1. les données à décoder
+            //? 2. le nom de la class où "stocker" les informations
+            //? 3. le type de données à convertir en objet
             $newUser = $serializer->deserialize($data, User::class, 'json');
         } 
         catch (Exception $e) {
         return new JsonResponse("JSON invalide", Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         
+        //? on vient vérifier si les données correspondent bien à ce qui doit être inséré en BDD
+        //? https://symfony.com/doc/current/validation.html#basic-constraints
+        //? (ex: isNull, string, number positive, datetime, etc etc ...)
         $errors = $validator->validate($newUser);
         if (count($errors) > 0) {
 
+            //todo manque un return ?
+            //? regarder la doc pour setvalidationerrors et new jsonerror
             $myJsonErrors = new JsonError(Response::HTTP_UNPROCESSABLE_ENTITY, "Des erreurs de validation ont été trouvés");
             $myJsonErrors->setValidationErrors($errors);
         }
 
+        //? on vérifie le type de l'utilisateur, si c'est une association ou un particulier, et on lui assigne son role en fonction
         if($newUser->getType() === 'Association'){
             $newUser->setRoles(['ROLE_ASSO']);
         } elseif ($newUser->getType() === 'Particular' || $newUser->getType() === 'Particulier') {
@@ -90,22 +104,28 @@ class ApiUserController extends AbstractController
         } else if ($newUser->getType() === 'Administrateur') {
             $newUser->setRoles(['ROLE_ADMIN']);
         }
+        //todo ajouter un else au dessus ??
         
+        //? on vient hasher le mot de passe de l'utilisateur, en le récupérant depuis le guetter, puis on insère le mot de passe hashé avec le setter
         $userHasher = $hasher->hashPassword($newUser, $newUser->getPassword());
         $newUser->setPassword($userHasher);
 
+        //? on vient créer un slug via le bundle slugify, à partir du nom de l'utilisateur (il n'y a que les assoc qui ont droit à une propriété "name")
+        //todo ajouter la génération du slug dans une condition : SI getRole === "association"
         $slug = $slugger->slugify($newUser->getName());
         $newUser->setSlug($slug);
 
+        //? prépare une entité pour la création, "cette entité va être liée à quelque chose en BDD"
         $doctrine->persist($newUser);
 
+        //todo try - catch à revoir, au niveau de l'erreur surtout
         try {
-            
+            //? on va envoyer les informations en base de données.
             $doctrine->flush();
         } 
         catch (UniqueConstraintViolationException $e) {
             return new JsonResponse("L'adresse mail existe déjà", Response::HTTP_CONFLICT);
-            }
+        }
 
         return $this->json(
             // les données à transformer en JSON
