@@ -104,7 +104,7 @@ class ApiUserController extends AbstractController
         } else if ($newUser->getType() === 'Administrateur') {
             $newUser->setRoles(['ROLE_ADMIN']);
         }
-        //todo ajouter un else au dessus ??
+        //todo ajouter un else au dessus ou supprimer le else if administrateur ??
         
         //? on vient hasher le mot de passe de l'utilisateur, en le récupérant depuis le guetter, puis on insère le mot de passe hashé avec le setter
         $userHasher = $hasher->hashPassword($newUser, $newUser->getPassword());
