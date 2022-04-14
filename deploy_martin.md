@@ -22,7 +22,7 @@
 
   - Lancer composer require symfony/apache-pack pour creer le fichier htaccess, répondre yes pour les recipes
 
-    - Si problème dans les liens = problème htaccess, lancer :
+    - Si problème dans les liens = problème htaccess, lancer : 
 
     ```
     sudo php -r "file_put_contents('/etc/apache2/apache2.conf', str_replace('AllowOverride None', 'AllowOverride All', file_get_contents('/etc/apache2/apache2.conf')));"
