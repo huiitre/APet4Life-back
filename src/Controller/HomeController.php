@@ -20,6 +20,6 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->redirect('http://localhost:5050');
+        return $this->redirect('http://apet4life.huiitre.fr');
     }
 }
