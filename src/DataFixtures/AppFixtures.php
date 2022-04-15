@@ -239,7 +239,7 @@ class AppFixtures extends Fixture
         }
 
         // On crée un profil administrateur, pour la gestion du back-office
-        $users = [
+        /* $users = [
             [
                 'login' => 'admin@admin.com',
                 'password' => 'admin',
@@ -262,7 +262,7 @@ class AppFixtures extends Fixture
             $newUser->setPassword($hashedPassword);
 
             $manager->persist($newUser);
-        }
+        } */
 
         // les reviews ne sont pas encore faites.
         /* ============== REVIEWS ==============  */
