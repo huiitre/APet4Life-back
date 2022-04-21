@@ -27,15 +27,19 @@ class GeolocApi
         $this->parameterBag = $parameterBag;
     }
 
-    /*
-     * Renvoie le contenu JSON du film demandé
-     * 
-     * @param string $title Movie title
-     */
     public function fetch($geoloc)
     {
         $uri = "https://geo.api.gouv.fr/" . $geoloc . "?fields=nom";
-        $response = $this->httpClient->request('GET', $uri);
+        $response = $this->httpClient->request(
+            'GET',
+            $uri,
+            [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json'
+                ]
+            ]
+        );
 
         // On récupère le contenu de la réponse
         $content = $response->getContent();
