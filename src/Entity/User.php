@@ -133,6 +133,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $region;
 
+    //? regex pour vérifier le numéro de téléphone
+    //? faire modif en front avant à l'édition
+    // @Assert\Regex(pattern = "((?:+33\s|0)[1-9](?:\s\d{2}){4})")
+    //? ------------------------------------------
     /**
      * @ORM\Column(type="string", nullable=true)
      * @Groups({"list_associations"})
