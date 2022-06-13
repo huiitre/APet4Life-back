@@ -71,6 +71,7 @@ class AppFixtures extends Fixture
             $allSpeciesEntity[] = $newSpecies;
             $manager->persist($newSpecies);
         }
+        
         /* ============== GEOLOCATION ==============  */
         $dataGeolocation = [
             [69001, 'Lyon', 'Rhône', 'Auvergne-Rhône-Alpes'],
